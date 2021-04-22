@@ -2,7 +2,7 @@ import { Aprendiz, NivelEducativo } from "./aprendiz.js";
 import { Curso } from "./curso.js";
 
 let cursos = [
-  new Curso("Practicas esenciales para el agilismo", 20, 20, true, 2009),
+  new Curso("Practicas esenciales para el agilismo", 20, 80, true, 2009),
   new Curso("Ingeniería de Software para la Web", 15, 99, true, 2018),
   new Curso("Pruebas automatizadas", 15, 99, false, 2020),
   new Curso("Principios de diseño y Arquitectura", 30, 75, true, 2019),
@@ -20,9 +20,11 @@ console.log(ap.cursos);
 
 let aprendizTable: HTMLElement = document.getElementById("aprendiz")!;
 let estadisticasTable: HTMLElement = document.getElementById("estadisticas")!;
+let cursosTable: HTMLElement = document.getElementById("cursos")!;
 
 mostrarDatosAprendiz(ap);
 mostrarEstadisticas(ap);
+mostrarCursosAprendiz(ap);
 
 function mostrarDatosAprendiz(aprendiz: Aprendiz): void {
   let tbodyAprendiz = document.createElement("tbody");
@@ -36,7 +38,17 @@ function mostrarDatosAprendiz(aprendiz: Aprendiz): void {
 
 function mostrarEstadisticas(aprendiz: Aprendiz): void {
   let numerosCertificados: number = aprendiz.darCursosCertificados();
-  let trElement: HTMLElement = document.createElement('tr');
-  trElement.innerHTML = `<td>Cursos Certificados</td><td>${numerosCertificados}</td>`
+  let trElement: HTMLElement = document.createElement("tr");
+  trElement.innerHTML = `<td><b>Cursos Certificados</b></td><td>${numerosCertificados}</td>`;
   estadisticasTable.appendChild(trElement);
+}
+
+function mostrarCursosAprendiz(aprendiz: Aprendiz): void {
+  let tbodyAprendiz = document.createElement("tbody");
+  aprendiz.cursos.forEach((curso) => {
+    let trElement: HTMLElement = document.createElement("tr");
+    trElement.innerHTML = `<td>${curso.nombre}</td><td>${curso.horas}</td><td>${curso.calificacion}</td><td>${curso.certificado}</td><td>${curso.anio}</td>`;
+    tbodyAprendiz.appendChild(trElement);
+  });
+  cursosTable.appendChild(tbodyAprendiz);
 }
